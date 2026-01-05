@@ -1,0 +1,33 @@
+name: run_tests
+
+on:
+  push:
+
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout tests repository'
+        uses: actions/checkout@v4
+
+      - name: Install Compose
+        uses: ndeloof/install-compose-action@v0.0.1
+        with:
+          version: v2.1.0 # defaults to 'latest'
+          legacy: true    # will also install in PATH as `docker-compose`
+
+      - name: 'Run tests'
+        run: |
+          cd ..
+          docker build --tag first -f docker-compose-github/ci/Dockerfile_first .
+          docker build --tag second -f docker-compose-github/ci/Dockerfile_second .
+          cd hello_world/ci
+          docker-compose up tests
+        shell: bash
+
+
+
+ 
+      

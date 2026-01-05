@@ -1,0 +1,35 @@
+services:
+  first:
+    container_name: first
+    image: first:latest
+    command: ["sleep", "infinity"]
+    hostname: first
+    ports:
+      - "8899:8899"
+      - "9900:9900"
+      - "8900:8900"
+      - "8003:8003/udp"
+    expose:
+      - "8899"
+      - "9900"
+      - "8900"
+      - "8001"
+      - "8001-8009/udp"
+    networks:
+      - net
+
+
+  second:
+    container_name: second
+    image: second:latest
+    #command: ["sleep", "infinity"]
+    hostname: second
+    networks:
+      - net
+    depends_on:
+      first:
+        condition: service_started
+
+
+networks:
+  net:
