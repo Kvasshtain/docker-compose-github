@@ -22,7 +22,7 @@ services:
   second:
     container_name: second
     image: second:latest
-    #command: ["sleep", "infinity"]
+    command: sh -c "ping -c 5 first"
     hostname: second
     networks:
       - net

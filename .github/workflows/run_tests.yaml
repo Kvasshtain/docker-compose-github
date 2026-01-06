@@ -23,8 +23,8 @@ jobs:
           cd ..
           docker build --tag first -f docker-compose-github/ci/Dockerfile_first .
           docker build --tag second -f docker-compose-github/ci/Dockerfile_second .
-          cd hello_world/ci
-          docker-compose up tests
+          cd docker-compose-github/ci
+          docker-compose up second
         shell: bash
 
 
